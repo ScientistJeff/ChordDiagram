@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 os.chdir('/Users/jeff/PycharmProjects/ChordDiagram')
 
-with open("UntradedRelationshipsEDGES.csv") as f:
+with open("UNTRADEDRelationships_NAICS.csv") as f:
     data = pd.DataFrame(pd.read_csv(f))
     peoplelist = data['Source'].unique()
     targetlist = data['Target'].unique()
@@ -23,7 +23,7 @@ for index,row in data.iterrows():
     newlist.append((row['Source'],row['Target']))
 B.add_edges_from(newlist)
 B2 = networkx.projected_graph(B,targetlist,multigraph=True)
-mymatrix = networkx.to_numpy_matrix(B2, dtype=numpy.float16)
+mymatrix = networkx.to_numpy_matrix(B2, dtype=np.float16)
 label = [list(targetlist),list(targetlist)]
 mylarry = la.larry(mymatrix,label, dtype=float)
 
