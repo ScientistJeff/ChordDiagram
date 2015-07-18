@@ -17,6 +17,7 @@ with open("UNTRADEDRelationships_NAICS.csv") as f:
 
 B = networkx.Graph()
 B.add_nodes_from(peoplelist,bipartite=0)
+
 B.add_nodes_from(targetlist,bipartite=1)
 newlist = []
 for index,row in data.iterrows():
@@ -26,10 +27,8 @@ B2 = networkx.projected_graph(B,targetlist,multigraph=True)
 mymatrix = networkx.to_numpy_matrix(B2, dtype=np.float16)
 label = [list(targetlist),list(targetlist)]
 mylarry = la.larry(mymatrix,label, dtype=float)
+mylarry.tofile('newlarry2.csv')
 
-# with open('adj_csv.csv','wb') as csvfile:
-#     mywriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#     mywriter.writerows(mymatrix)
-
-np.savetxt("adj_matr2.csv",mymatrix,fmt='%3d',delimiter=",")
-
+thindata = data.iloc[:,[2,3,4]]
+thinnodup = thindata.drop_duplicates()
+thinnodup.to_csv('listofcompanies.csv')
