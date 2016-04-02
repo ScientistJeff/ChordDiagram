@@ -11,8 +11,8 @@ os.chdir('/Users/jeff/PycharmProjects/ChordDiagram')
 
 with open("UNTRADEDRelationships_NAICS.csv") as f:
     data = pd.DataFrame(pd.read_csv(f))
-    peoplelist = data['Source'].unique()
-    targetlist = data['Target'].unique()
+    peoplelist = data['Person_Id'].unique()
+    targetlist = data['Business_ID'].unique()
     connectionlist = []
 
 B = networkx.Graph()
@@ -20,7 +20,7 @@ B.add_nodes_from(peoplelist,bipartite=0)
 B.add_nodes_from(targetlist,bipartite=1)
 newlist = []
 for index,row in data.iterrows():
-    newlist.append((row['Source'],row['Target']))
+    newlist.append((row['Person_Id'],row['Business_ID']))
 B.add_edges_from(newlist)
 B2 = networkx.projected_graph(B,targetlist,multigraph=True)
 mymatrix = networkx.to_numpy_matrix(B2, dtype=np.float16)

@@ -16,7 +16,7 @@ with open("UNTRADEDRelationships_NAICS.csv") as f:
     connectionlist = []
 
 B = networkx.Graph()
-B.add_nodes_from(peoplelist,bipartite=0)
+#B.add_nodes_from(peoplelist,bipartite=0)
 
 B.add_nodes_from(targetlist,bipartite=1)
 newlist = []
